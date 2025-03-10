@@ -1,0 +1,62 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+
+<div class="columns is-centered">
+    <div class="column is-10">
+        <div class="my-4">
+            <a class="button is-link" href="{% url 'app:index' %}">
+                Добавить сотрудника
+            </a>
+        </div>
+        <table class="table is-striped is-fullwidth is-hoverable is-bordered">
+            <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th>Должность</th>
+                    <th>Отдел(ы)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                <tr>
+                    <td>{{ employee.name }}</td>
+                    <td>
+                        {% if employee.position is None %}
+                        -
+                        {% else %}
+                        {{ employee.position.name }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if employee.position.departments is None %}
+                        -
+                        {% else %}
+                        {% for department in employee.position.departments.all %}
+                        {% if department.parent is None %}
+                        <div class="tag is-danger">{{ department.name }}</div>
+                        {% else %}
+                        <div class="tag is-success">{{ department.name }}</div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="buttons">
+                            <a href="{% url 'app:employee_edit' employee.id %}" class="button is-info is-small">
+                                <ion-icon name="create"></ion-icon>
+                            </a>
+                            <a href="{% url 'app:employee_delete' employee.id %}" class="button is-danger is-small">
+                                <ion-icon name="trash"></ion-icon>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base_layout.html' %}
+{% load department_tags %}
+
+{% block content %}
+<div class="columns is-centered is-vcentered">
+    <div class="column is-5">
+        <form method="post" class="box" id="position-form" data-selected-departments="{{ selected_departments|safe }}">
+            {% csrf_token %}
+            <div class="field">
+                <div class="control">
+                    <input type="text" class="input" name="name" placeholder="Название должности" required
+                        value="{{ position.name }}">
+                </div>
+            </div>
+            <hr>
+            <ul id="department-list">
+                {% for department in departments %}
+                {% render_department_tree department %}
+                {% endfor %}
+            </ul>
+
+            <ul id="positions-list">
+            </ul>
+
+            <hr>
+            <div class="field">
+                <div class="control">
+                    <button type="submit" class="button is-primary">Отправить</button>
+                </div>
+            </div>
+    </div>
+</div>
+{% endblock %}

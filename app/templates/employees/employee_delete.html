@@ -1,0 +1,18 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="columns is-centered is-vcentered">
+    <div class="column is-6">
+        <div class="box">
+            <form method="post">
+                {% csrf_token %}
+                <p class="subtitle">Вы уверены, что хотите удалить сотрудника "{{ employee.name }}"?</p>
+                <div class="buttons py-4">
+                    <button type="submit" class="button is-danger">Удалить</button>
+                    <a href="{% url 'app:employee_list' %}" class="button is-link">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

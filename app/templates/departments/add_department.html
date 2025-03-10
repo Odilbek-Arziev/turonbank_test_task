@@ -1,0 +1,22 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="columns is-centered is-vcentered">
+    <div class="column is-6">
+        <div class="box">
+            <form method="post">
+                {% csrf_token %}
+                <div class="field">
+                    <div class="control">
+                        <input type="text" class="input" name="name" placeholder="Название отдела" required>
+                    </div>
+                </div>
+                <div class="buttons py-4">
+                    <button type="submit" class="button is-primary">Добавить</button>
+                    <a href="{% url 'app:departments' %}" class="button is-link">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

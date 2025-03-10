@@ -1,0 +1,17 @@
+{% load department_tags %}
+
+<li>
+    <div class="department-wrapper">
+        <a href="{% url 'app:index' department.id %}" class="department" data-id="{{ department.id }}">
+            {{ department.name }}
+        </a>
+        <button type="button" class="select-department select-btn" data-id="{{ department.id }}">Выбрать</button>
+    </div>
+    {% if sub_departments %}
+    <ul class="sub_departments" id="subdepartments-{{ department.id }}" style="display: none;">
+        {% for sub in sub_departments %}
+        {% render_department_tree sub %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</li>

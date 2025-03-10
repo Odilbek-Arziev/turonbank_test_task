@@ -1,0 +1,51 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+
+<div class="columns is-centered">
+    <div class="column is-10">
+        <div class="my-4">
+            <a class="button is-link" href="{% url 'app:add_position' %}">
+                Добавить должность
+            </a>
+        </div>
+        <table class="table is-striped is-fullwidth is-hoverable is-bordered">
+            <thead>
+                <tr>
+                    <th>Должность</th>
+                    <th>Отдел(ы)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for position in positions %}
+                <tr>
+                    <td>{{ position.name }}</td>
+                    <td>
+                        {% for department in position.departments.all %}
+                        {% if department.parent is None %}
+                        <div class="tag is-danger">{{ department.name }}</div>
+                        {% else %}
+                        <div class="tag is-success">{{ department.name }}</div>
+                        {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <div class="buttons">
+                            <a href="{% url 'app:edit_position' position.pk %}" class="button is-info is-small">
+                                <ion-icon name="create"></ion-icon>
+                            </a>
+                            <a href="{% url 'app:delete_position' position.pk %}" class="button is-danger is-small">
+                                <ion-icon name="trash"></ion-icon>
+                            </a>
+
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

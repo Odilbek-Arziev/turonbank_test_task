@@ -1,0 +1,62 @@
+.sub_departments {
+    margin-left: 20px;
+    padding-left: 10px;
+    border-left: 2px solid #ccc;
+    display: none;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.department {
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    color: #0044cc;
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.select-btn {
+    margin-left: 10px;
+    padding: 2px 8px;
+    font-size: 14px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.select-btn:hover {
+    background-color: #218838;
+}
+
+.node rect {
+    fill: lightgreen;
+    stroke: blue;
+    stroke-width: 1px;
+    cursor: pointer;
+}
+
+.node rect:hover {
+    fill: lightblue;
+}
+
+.link {
+    fill: none;
+    stroke: black;
+    stroke-width: 1.5px;
+}
+
+.node text {
+    font-size: 14px;
+    text-anchor: middle;
+}
+
+svg {
+    min-width: 100%;
+    min-height: 100vh;
+}

@@ -1,0 +1,38 @@
+{% extends 'base_layout.html' %}
+{% load department_tags %}
+
+{% block content %}
+<div class="columns is-centered is-vcentered">
+  <div class="column is-5">
+    <form method="post" class="box" action="{% url 'app:create_employee' %}">
+      {% csrf_token %}
+      <div class="field">
+        <div class="control">
+          <input type="text" class="input" name="name" placeholder="Имя сотрудника" required>
+        </div>
+      </div>
+      <hr>
+      <ul id="department-list">
+       {% if departments %}
+       {% for department in departments %}
+       {% render_department_tree department %}
+       {% endfor %}
+       {% else %}
+       <div class="subtitle">
+        Пока нет департаментов
+       </div>
+       {% endif %}
+      </ul>
+
+      <ul id="positions-list">
+      </ul>
+
+      <hr>
+      <div class="field">
+        <div class="control">
+          <button type="submit" class="button is-primary">Отправить</button>
+        </div>
+      </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base_layout.html" %}
+{% load department_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="columns is-centered is-vcentered">
+        <div class="column is-6">
+            <div class="box">
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                    {% if field.name != "position" %}
+                    <div class="field">
+                        <label class="label">{{ field.label }}</label>
+                        <div class="control">
+                            <input type="text" class="input" name="{{ field.name }}" value="{{ field.value }}">
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <hr>
+
+                    <label class="label">Выберите департамент:</label>
+                    <ul id="department-list">
+                        {% for department in departments %}
+                        {% render_department_tree department %}
+                        {% endfor %}
+                    </ul>
+
+                    <hr>
+
+                    <label class="label">Выберите новую должность:</label>
+                    <ul id="positions-list">
+                        {% if form.instance.position %}
+                        <div class="has-text-weight-bold is-size-6">Текущая должность:</div>
+                        <li data-id="{{ form.instance.position.id }}">
+                            <input type="radio" name="position" value="{{ form.instance.position.id }}" checked>
+                            {{ form.instance.position.name }}
+                        </li>
+                        <hr>
+                        {% endif %}
+                    </ul>
+
+                    <hr>
+
+                    <div class="control">
+                        <button type="submit" class="button is-primary">Сохранить</button>
+                        <a href="{% url 'app:employee_list' %}" class="button is-light">Отмена</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

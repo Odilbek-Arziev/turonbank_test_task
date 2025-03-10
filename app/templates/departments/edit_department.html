@@ -1,0 +1,41 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="columns is-centered is-vcentered">
+    <div class="column is-6">
+        <div class="box">
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="field">
+                    <label class="label">Название отдела</label>
+                    <div class="control">
+                        <input type="text" class="input" name="name" value="{{ department.name }}" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Родительский отдел</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select name="parent">
+                                <option value="">Без родителя</option>
+                                {% for dep in departments %}
+                                <option value="{{ dep.pk }}" {% if dep.pk == department.parent.pk %}selected{% endif %}>
+                                    {{ dep.name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons py-4">
+                    <button type="submit" class="button is-primary">Сохранить</button>
+                    <a href="{% url 'app:departments' %}" class="button is-link">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
